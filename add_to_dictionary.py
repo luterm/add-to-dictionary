@@ -1,4 +1,3 @@
-
 from googletrans import Translator
 import sys
 import os
@@ -23,12 +22,23 @@ except Exception as e:
     print(f"Translation error: {e}")
     sys.exit(1)
 
-# Define the dictionary file path (in iCloud Drive)
+# Define the dictionary file path
 dictionary_path = os.path.expanduser("~/Library/Mobile Documents/com~apple~CloudDocs/personal_dictionary.txt")
 
-# Save the word and its translation to the file
-with open(dictionary_path, 'a', encoding='utf-8') as f:
-    f.write(f"{selected_text}: {translation}\n")
+# Ensure the directory exists
+try:
+    os.makedirs(os.path.dirname(dictionary_path), exist_ok=True)
+except Exception as e:
+    print(f"Error creating directory: {e}")
+    sys.exit(1)
 
-# Output the translation (for user feedback)
+# Save the word and its translation to the file
+try:
+    with open(dictionary_path, 'a', encoding='utf-8') as f:
+        f.write(f"{selected_text}: {translation}\n")
+except Exception as e:
+    print(f"Error writing to dictionary file: {e}")
+    sys.exit(1)
+
+# Output the translation
 print(translation)
