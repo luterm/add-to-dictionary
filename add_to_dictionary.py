@@ -32,10 +32,22 @@ except Exception as e:
     print(f"Error creating directory: {e}")
     sys.exit(1)
 
+# Check for existing entry to avoid duplicates
+entry = f"{selected_text}: {translation}\n"
+try:
+    if os.path.exists(dictionary_path):
+        with open(dictionary_path, 'r', encoding='utf-8') as f:
+            if entry in f.readlines():
+                print(f"Entry '{selected_text}: {translation}' already exists")
+                sys.exit(0)
+except Exception as e:
+    print(f"Error reading dictionary file: {e}")
+    sys.exit(1)
+
 # Save the word and its translation to the file
 try:
     with open(dictionary_path, 'a', encoding='utf-8') as f:
-        f.write(f"{selected_text}: {translation}\n")
+        f.write(entry)
 except Exception as e:
     print(f"Error writing to dictionary file: {e}")
     sys.exit(1)
