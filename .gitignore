@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.env
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Project-specific
+personal_dictionary.txt
+ls -a
